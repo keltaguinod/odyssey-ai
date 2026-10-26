@@ -1,0 +1,18 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "functions": {
+        "app.py": {
+            "maxDuration": 60,
+            "excludeFiles": "{tests/**,.venv/**,credentials.json,token.json,.env}"
+        }
+    },
+    "headers": [
+        {
+            "source": "/(app.css|app.js|theme.js|offline-store.js|login.js|login.css|sw.js|icon.svg|manifest.webmanifest)",
+            "headers": [
+                { "key": "X-Content-Type-Options", "value": "nosniff" },
+                { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+            ]
+        }
+    ]
+}

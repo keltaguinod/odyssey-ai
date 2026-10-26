@@ -1,0 +1,19 @@
+{
+    "name": "Odyssey AI — Gmail Workspace",
+    "short_name": "Odyssey",
+    "description": "A private AI workspace for Gmail.",
+    "start_url": "/dashboard",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#07111f",
+    "theme_color": "#07111f",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

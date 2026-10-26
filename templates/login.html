@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#050c16">
+    <meta name="description" content="Odyssey is your private, AI-powered Gmail workspace.">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/login.css">
+    <title>Odyssey — Your inbox, intelligently navigated</title>
+</head>
+<body class="landing">
+    <svg class="svg-sprite" aria-hidden="true">
+        <symbol id="i-logo" viewBox="0 0 32 32"><mask id="logo-orbit-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="white"/><path d="M3.35 21.01A14 5 -25 1 0 27.2 9.89" fill="none" stroke="black" stroke-width="4"/></mask><g mask="url(#logo-orbit-gap)"><path d="M16 2.5 18 14 26.5 16 18 18 16 29.5 14 18 5.5 16 14 14Z" fill="currentColor" stroke="none"/><path d="M17.82 5.66A10.5 10.5 0 0 1 17.82 26.34M14.18 26.34A10.5 10.5 0 0 1 14.18 5.66" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g><path d="M3.35 21.01A14 5 -25 1 0 27.2 9.89" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="27.2" cy="9.89" r="2.3" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-google" viewBox="0 0 24 24"><path fill="#4285F4" stroke="none" d="M21.6 12.23c0-.71-.06-1.4-.18-2.06H12v3.9h5.38a4.6 4.6 0 0 1-2 3.02v2.53h3.24c1.9-1.75 2.98-4.33 2.98-7.39Z"/><path fill="#34A853" stroke="none" d="M12 22c2.7 0 4.98-.9 6.63-2.38l-3.25-2.53c-.9.6-2.05.96-3.38.96-2.61 0-4.82-1.76-5.61-4.13H3.04v2.61A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" stroke="none" d="M6.39 13.92A6 6 0 0 1 6.07 12c0-.67.12-1.32.32-1.92V7.47H3.04A10 10 0 0 0 2 12c0 1.61.38 3.14 1.04 4.53l3.35-2.61Z"/><path fill="#EA4335" stroke="none" d="M12 5.95c1.47 0 2.79.5 3.82 1.5l2.88-2.87A9.64 9.64 0 0 0 12 2a10 10 0 0 0-8.96 5.47l3.35 2.61C7.18 7.71 9.39 5.95 12 5.95Z"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+        <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.2 4.3a5 5 0 0 0 3.5 3.5L21 12l-4.3 1.2a5 5 0 0 0-3.5 3.5L12 21l-1.2-4.3a5 5 0 0 0-3.5-3.5L3 12l4.3-1.2a5 5 0 0 0 3.5-3.5L12 3Z"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.8 8.2 7 10 4.2-1.8 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+        <symbol id="i-offline" viewBox="0 0 24 24"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M2 9a14.5 14.5 0 0 1 20 0"/><circle cx="12" cy="19.5" r=".8"/></symbol>
+    </svg>
+
+    <div class="landing-glow" aria-hidden="true"></div>
+
+    <header class="landing-nav">
+        <a class="brand" href="/" aria-label="Odyssey home">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><use href="#i-logo"/></svg></span>
+            <span>Odyssey</span>
+        </a>
+        <nav class="landing-links" aria-label="Page sections">
+            <a href="#ask">Capabilities</a>
+            <a href="#offline">Offline</a>
+            <a href="#privacy">Privacy</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <span class="hero-badge"><span class="badge-dot"></span>Your AI workspace for Gmail</span>
+                <h1 id="hero-title">Your inbox has answers. <em>Just ask.</em></h1>
+                <p class="hero-lede">Search, summarize, draft and tidy Gmail in plain language, with every change confirmed by you.</p>
+
+                {% if error %}
+                <div class="auth-error" role="alert">{{ error }}</div>
+                {% endif %}
+
+                <div class="hero-actions">
+                    {% if oauth_ready %}
+                    <a class="google-button" href="/auth/google">
+                        <svg aria-hidden="true"><use href="#i-google"/></svg>
+                        <span>Continue with Google</span>
+                    </a>
+                    {% else %}
+                    <button class="google-button" type="button" disabled>
+                        <svg aria-hidden="true"><use href="#i-google"/></svg>
+                        <span>Google setup required</span>
+                    </button>
+                    {% endif %}
+                </div>
+                {% if not oauth_ready %}
+                <p class="setup-note">Add the environment variables from <code>.env.example</code> to enable sign-in.</p>
+                {% endif %}
+                <p class="hero-trust"><svg aria-hidden="true"><use href="#i-check"/></svg>You approve every permission. Odyssey never sends or deletes without your confirmation.</p>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+                <!-- Back layer: light platform and far halves of the rings. Tiles sit on the rings, so the rings tie them to the orb. -->
+                <svg class="orbit-rings" viewBox="0 0 560 440">
+                    <defs>
+                        <filter id="ring-glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="2.2" result="blur"/>
+                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                        <filter id="platform-blur" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="6"/></filter>
+                        <linearGradient id="ring-a" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0" stop-color="#5fe3ff" stop-opacity=".95"/>
+                            <stop offset=".55" stop-color="#7fe9ff" stop-opacity=".9"/>
+                            <stop offset="1" stop-color="#8b7bff" stop-opacity=".85"/>
+                        </linearGradient>
+                        <linearGradient id="ring-b" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#7fe9ff" stop-opacity=".9"/>
+                            <stop offset="1" stop-color="#5fd6e8" stop-opacity=".75"/>
+                        </linearGradient>
+                        <radialGradient id="flare">
+                            <stop offset="0" stop-color="#ffffff"/>
+                            <stop offset=".25" stop-color="#a8f6ff" stop-opacity=".9"/>
+                            <stop offset="1" stop-color="#5fe3ff" stop-opacity="0"/>
+                        </radialGradient>
+                        <radialGradient id="platform">
+                            <stop offset="0" stop-color="#7ff3ff" stop-opacity=".9"/>
+                            <stop offset=".35" stop-color="#40c8ff" stop-opacity=".35"/>
+                            <stop offset="1" stop-color="#3d8cff" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                    <g class="platform">
+                        <ellipse cx="280" cy="392" rx="170" ry="26" fill="url(#platform)" opacity=".55"/>
+                        <ellipse cx="280" cy="392" rx="168" ry="24" fill="none" stroke="#5fe3ff" stroke-opacity=".14"/>
+                        <ellipse cx="280" cy="392" rx="122" ry="17" fill="none" stroke="#5fe3ff" stroke-opacity=".22"/>
+                        <ellipse cx="280" cy="392" rx="78" ry="11" fill="none" stroke="#7ff3ff" stroke-opacity=".35"/>
+                        <ellipse cx="280" cy="392" rx="60" ry="7" fill="#9ff6ff" opacity=".5" filter="url(#platform-blur)"/>
+                    </g>
+                    <g filter="url(#ring-glow)" fill="none">
+                        <ellipse cx="280" cy="220" rx="250" ry="78" transform="rotate(-14 280 220)" stroke="url(#ring-a)" stroke-width="1.3" stroke-opacity=".55"/>
+                        <ellipse cx="280" cy="220" rx="205" ry="120" transform="rotate(32 280 220)" stroke="url(#ring-b)" stroke-width="1.1" stroke-opacity=".45"/>
+                    </g>
+                    <circle cx="422" cy="186.2" r="9" fill="url(#flare)" opacity=".7"/>
+                    <g class="ripples">
+                        <ellipse cx="280" cy="392" rx="120" ry="17"/>
+                        <ellipse cx="280" cy="392" rx="120" ry="17"/>
+                        <ellipse cx="280" cy="392" rx="120" ry="17"/>
+                    </g>
+                    <g class="twinkles">
+                        <circle cx="64" cy="70" r="1.6"/><circle cx="214" cy="34" r="1.2"/><circle cx="352" cy="58" r="1.5"/>
+                        <circle cx="512" cy="92" r="1.3"/><circle cx="540" cy="300" r="1.6"/><circle cx="30" cy="380" r="1.2"/>
+                        <circle cx="168" cy="404" r="1.4"/><circle cx="470" cy="420" r="1.2"/>
+                    </g>
+                    <g class="comets back">
+                        <g transform="rotate(-14 280 220)">
+                            <path class="comet-tail comet-a1" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                            <path class="comet-head comet-a1" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                            <path class="comet-tail comet-a2" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                            <path class="comet-head comet-a2" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                        </g>
+                        <g transform="rotate(32 280 220)">
+                            <path class="comet-tail comet-b" d="M75 220a205 120 0 1 0 410 0a205 120 0 1 0 -410 0" pathLength="1000"/>
+                            <path class="comet-head comet-b" d="M75 220a205 120 0 1 0 410 0a205 120 0 1 0 -410 0" pathLength="1000"/>
+                        </g>
+                    </g>
+                </svg>
+                <div class="sphere">
+                    <svg class="sphere-hud" viewBox="0 0 32 32">
+                        <circle class="hud-a" cx="16" cy="16" r="13.2"/>
+                        <circle class="hud-b" cx="16" cy="16" r="14.6"/>
+                    </svg>
+                    <!-- The compass star from the Odyssey logo, glowing inside the glass. -->
+                    <svg class="sphere-star" viewBox="0 0 32 32">
+                        <defs>
+                            <linearGradient id="star-fill" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#e6fdff"/>
+                                <stop offset=".45" stop-color="#8ff0ff"/>
+                                <stop offset="1" stop-color="#8b7bff"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M16 2.5 18 14 26.5 16 18 18 16 29.5 14 18 5.5 16 14 14Z" fill="url(#star-fill)" stroke="none"/>
+                    </svg>
+                    <span class="sphere-core"></span>
+                    <span class="sphere-shine"></span>
+                    <span class="sphere-sweep"></span>
+                </div>
+                <!-- Front layer: near halves of the rings cross in front of the glass, with light flares on them. -->
+                <svg class="orbit-rings" viewBox="0 0 560 440">
+                    <clipPath id="front-a"><rect x="-300" y="220" width="1160" height="400" transform="rotate(-14 280 220)"/></clipPath>
+                    <clipPath id="front-b"><rect x="-300" y="220" width="1160" height="400" transform="rotate(32 280 220)"/></clipPath>
+                    <g filter="url(#ring-glow)" fill="none">
+                        <ellipse cx="280" cy="220" rx="250" ry="78" transform="rotate(-14 280 220)" stroke="url(#ring-a)" stroke-width="1.5" clip-path="url(#front-a)"/>
+                        <ellipse cx="280" cy="220" rx="205" ry="120" transform="rotate(32 280 220)" stroke="url(#ring-b)" stroke-width="1.2" clip-path="url(#front-b)"/>
+                    </g>
+                    <g clip-path="url(#front-a)">
+                        <g class="comets front">
+                            <g transform="rotate(-14 280 220)">
+                                <path class="comet-tail comet-a1" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                                <path class="comet-head comet-a1" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                                <path class="comet-tail comet-a2" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                                <path class="comet-head comet-a2" d="M30 220a250 78 0 1 0 500 0a250 78 0 1 0 -500 0" pathLength="1000"/>
+                            </g>
+                        </g>
+                    </g>
+                    <g clip-path="url(#front-b)">
+                        <g class="comets front">
+                            <g transform="rotate(32 280 220)">
+                                <path class="comet-tail comet-b" d="M75 220a205 120 0 1 0 410 0a205 120 0 1 0 -410 0" pathLength="1000"/>
+                                <path class="comet-head comet-b" d="M75 220a205 120 0 1 0 410 0a205 120 0 1 0 -410 0" pathLength="1000"/>
+                            </g>
+                        </g>
+                    </g>
+                    <g class="flares">
+                        <circle cx="417.6" cy="255.3" r="11" fill="url(#flare)"/>
+                        <circle cx="194.6" cy="314.2" r="8" fill="url(#flare)"/>
+                        <circle cx="138" cy="253.8" r="9" fill="url(#flare)"/>
+                    </g>
+                </svg>
+                <span class="float-tile tile-1"><svg><use href="#i-spark"/></svg></span>
+                <span class="float-tile tile-2"><svg><use href="#i-mail"/></svg></span>
+                <span class="float-tile tile-3"><svg><use href="#i-star"/></svg></span>
+                <span class="float-tile tile-4"><svg><use href="#i-clock"/></svg></span>
+            </div>
+        </section>
+
+        <section class="capabilities" aria-labelledby="capabilities-title">
+            <h2 class="section-rule" id="capabilities-title"><span>What Odyssey does</span></h2>
+            <div class="cap-grid">
+                <article class="cap-card" id="ask">
+                    <span class="cap-icon blue"><svg><use href="#i-spark"/></svg></span>
+                    <h3>Ask your inbox</h3>
+                    <p>Find receipts, catch up on unread mail or follow a thread, just by asking.</p>
+                </article>
+                <article class="cap-card">
+                    <span class="cap-icon violet"><svg><use href="#i-star"/></svg></span>
+                    <h3>Act with confirmation</h3>
+                    <p>Delete, star, snooze or send. You see the messages first; nothing changes until you confirm.</p>
+                </article>
+                <article class="cap-card" id="offline">
+                    <span class="cap-icon green"><svg><use href="#i-offline"/></svg></span>
+                    <h3>Works offline</h3>
+                    <p>Read saved mail and write replies offline. Everything syncs when you’re back.</p>
+                </article>
+                <article class="cap-card" id="privacy">
+                    <span class="cap-icon amber"><svg><use href="#i-check"/></svg></span>
+                    <h3>Private by design</h3>
+                    <p>No Odyssey database. Your session is encrypted, and signing out erases saved mail.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <span>Odyssey AI</span>
+        <span>Built for calmer work.</span>
+    </footer>
+    <script src="/login.js" defer></script>
+</body>
+</html>

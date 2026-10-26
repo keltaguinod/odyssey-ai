@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#07111f">
+    <meta name="description" content="Odyssey AI Gmail workspace">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/app.css">
+    <script src="/theme.js"></script>
+    <title>Odyssey — Gmail workspace</title>
+</head>
+<body class="app-page" data-account="{{ user.email }}" data-name="{{ user.name or 'O' }}">
+    <a class="skip-link" href="#main-content">Skip to conversation</a>
+
+    <svg class="svg-sprite" aria-hidden="true">
+        <symbol id="i-logo" viewBox="0 0 32 32"><mask id="logo-orbit-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="white"/><path d="M3.35 21.01A14 5 -25 1 0 27.2 9.89" fill="none" stroke="black" stroke-width="4"/></mask><g mask="url(#logo-orbit-gap)"><path d="M16 2.5 18 14 26.5 16 18 18 16 29.5 14 18 5.5 16 14 14Z" fill="currentColor" stroke="none"/><path d="M17.82 5.66A10.5 10.5 0 0 1 17.82 26.34M14.18 26.34A10.5 10.5 0 0 1 14.18 5.66" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g><path d="M3.35 21.01A14 5 -25 1 0 27.2 9.89" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="27.2" cy="9.89" r="2.3" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+        <symbol id="i-drive" viewBox="0 0 24 24"><path d="M9 3h6l6 10.4-3 5.2H6l-3-5.2L9 3Z"/><path d="m9 3 6 10.4M3 13.4h12M9 18.6l6-10.4"/></symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></symbol>
+        <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+        <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.2 4.3a5 5 0 0 0 3.5 3.5L21 12l-4.3 1.2a5 5 0 0 0-3.5 3.5L12 21l-1.2-4.3a5 5 0 0 0-3.5-3.5L3 12l4.3-1.2a5 5 0 0 0 3.5-3.5L12 3Z"/></symbol>
+        <symbol id="i-send" viewBox="0 0 24 24"><path d="m4 12 16-8-5 16-3-6-8-2Z"/><path d="m12 14 8-10"/></symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+        <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H5v16h5M14 8l4 4-4 4m4-4H9"/></symbol>
+        <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 4h16l2 11v5H2v-5L4 4Z"/><path d="M2 15h5l2 3h6l2-3h5"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></symbol>
+        <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></symbol>
+        <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+        <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+        <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4L16.5 3.5Z"/></symbol>
+    </svg>
+
+    <div class="mobile-scrim" id="mobile-scrim" hidden></div>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+            <div class="sidebar-top">
+                <a class="brand brand-app" href="/dashboard" aria-label="Odyssey dashboard">
+                    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><use href="#i-logo"/></svg></span>
+                    <span>Odyssey</span>
+                </a>
+                <button class="icon-button mobile-only" id="close-sidebar" type="button" aria-label="Close navigation"><svg><use href="#i-x"/></svg></button>
+            </div>
+
+            <button class="new-chat-button" id="new-chat" type="button"><svg><use href="#i-plus"/></svg><span>New conversation</span><kbd>⌘ K</kbd></button>
+
+            <nav class="primary-nav" aria-label="Primary">
+                <button class="nav-item active" data-view="chat" type="button"><svg><use href="#i-chat"/></svg><span>Ask Odyssey</span></button>
+                <button class="nav-item" data-open-inbox type="button"><svg><use href="#i-inbox"/></svg><span>Inbox</span><span class="nav-badge outbox-count" title="Waiting in outbox" hidden></span><span class="nav-badge inbox-count" title="Unread" hidden></span></button>
+                <button class="nav-item" id="open-compose" type="button"><svg><use href="#i-mail"/></svg><span>Compose</span><span class="nav-shortcut">C</span></button>
+                <button class="nav-item" id="open-storage" type="button"><svg><use href="#i-drive"/></svg><span>Storage</span></button>
+            </nav>
+
+            <div class="history-section">
+                <div class="section-label"><span>Recent</span><button id="clear-history" type="button">Clear</button></div>
+                <div class="history-list" id="history-list">
+                    <p class="history-empty">Your conversations will appear here.</p>
+                </div>
+            </div>
+
+            <div class="sidebar-bottom">
+                <button class="install-button" id="install-app" type="button" hidden><svg><use href="#i-download"/></svg><span>Install mobile app</span></button>
+                <div class="account-menu-wrap">
+                    <button class="account-button" id="account-button" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="account-popover" data-menu="account-popover">
+                        {% if user.picture %}<img src="{{ user.picture }}" alt="">{% else %}<span class="avatar-fallback">{{ (user.name or 'O')[0] }}</span>{% endif %}
+                        <span class="account-copy"><strong>{{ user.name or 'Google user' }}</strong><small>{{ user.email }}</small></span>
+                        <svg><use href="#i-chevron"/></svg>
+                    </button>
+                    <div class="account-popover" id="account-popover" hidden>
+                        <button class="logout-button" data-action="logout" type="button"><svg><use href="#i-logout"/></svg>Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="workspace" id="main-content">
+            <header class="workspace-header">
+                <div class="header-left">
+                    <button class="icon-button mobile-only" id="open-sidebar" type="button" aria-label="Open navigation"><svg><use href="#i-menu"/></svg></button>
+                    <div><h1>Ask Odyssey</h1><p class="connection-status" id="connection-status"><span></span><strong>Connecting</strong></p></div>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode"><svg class="icon-sun"><use href="#i-sun"/></svg><svg class="icon-moon"><use href="#i-moon"/></svg></button>
+                </div>
+            </header>
+
+            <section class="conversation" aria-label="Conversation">
+                <div class="message-stream" id="message-stream" aria-live="polite">
+                    <div class="welcome" id="welcome">
+                        <div class="odyssey-orb"><svg viewBox="0 0 32 32"><use href="#i-logo"/></svg></div>
+                        <div class="welcome-copy">
+                            <p class="welcome-kicker">Your inbox, understood</p>
+                            <h2>Good <span id="day-period">day</span>, {{ (user.name or 'there').split(' ')[0] }}.</h2>
+                            <p>What would you like to know about your Gmail?</p>
+                        </div>
+                        <div class="mailbox-stats" id="mailbox-stats" aria-label="Mailbox summary">
+                            <div><span class="stat-icon blue"><svg><use href="#i-inbox"/></svg></span><p><strong id="unread-count">—</strong><span>Unread</span></p></div>
+                            <div><span class="stat-icon violet"><svg><use href="#i-mail"/></svg></span><p><strong id="message-count">—</strong><span>Messages</span></p></div>
+                            <div><span class="stat-icon green"><svg><use href="#i-drive"/></svg></span><p><strong id="storage-percent">—</strong><span>Storage used</span></p></div>
+                        </div>
+                        <div class="prompt-grid" aria-label="Suggested prompts">
+                            <button class="prompt-card" data-prompt="Summarize my unread emails from today."><span class="prompt-card-icon blue"><svg><use href="#i-spark"/></svg></span><span><strong>Catch me up</strong><small>Summarize today’s unread mail</small></span><svg class="card-arrow"><use href="#i-chevron"/></svg></button>
+                            <button class="prompt-card" data-prompt="Find emails from the last 7 days that need a reply."><span class="prompt-card-icon violet"><svg><use href="#i-mail"/></svg></span><span><strong>Find action items</strong><small>Surface messages needing a reply</small></span><svg class="card-arrow"><use href="#i-chevron"/></svg></button>
+                            <button class="prompt-card" data-prompt="How much Google storage am I using?"><span class="prompt-card-icon green"><svg><use href="#i-drive"/></svg></span><span><strong>Check storage</strong><small>See account capacity at a glance</small></span><svg class="card-arrow"><use href="#i-chevron"/></svg></button>
+                            <button class="prompt-card" data-prompt="Draft a friendly follow-up email for a meeting."><span class="prompt-card-icon amber"><svg><use href="#i-edit"/></svg></span><span><strong>Draft a follow-up</strong><small>Start a polished new message</small></span><svg class="card-arrow"><use href="#i-chevron"/></svg></button>
+                        </div>
+                        <div class="recent-mail" id="recent-mail" hidden>
+                            <div class="recent-mail-title"><span>Latest in your inbox</span><small>Live from Gmail</small></div>
+                            <div id="recent-mail-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="composer-wrap">
+                    <button class="jump-latest" id="jump-latest" type="button" hidden><svg><use href="#i-chevron"/></svg>Jump to latest</button>
+                    <form class="chat-composer" id="chat-form">
+                        <label class="sr-only" for="prompt-input">Message Odyssey</label>
+                        <textarea id="prompt-input" rows="1" maxlength="4000" placeholder="Ask, search, star, snooze or clean up your inbox…"></textarea>
+                        <div class="composer-footer">
+                            <div class="privacy-hint"><svg><use href="#i-lock"/></svg><span>Private to your account</span></div>
+                            <button class="send-button" id="send-prompt" type="submit" aria-label="Send message" disabled><svg><use href="#i-send"/></svg></button>
+                        </div>
+                    </form>
+                    <p class="ai-disclaimer">Odyssey can make mistakes. Verify important details before acting.</p>
+                </div>
+            </section>
+        </main>
+
+        <aside class="inbox-panel" id="inbox-panel" aria-labelledby="inbox-heading" aria-hidden="true">
+            <div class="panel-header">
+                <div><span class="panel-kicker" id="inbox-sync-status">Saved on this device</span><h2 id="inbox-heading">Inbox</h2></div>
+                <div class="panel-actions">
+                    <button class="icon-button" id="inbox-compose" type="button" aria-label="Compose" title="Compose"><svg><use href="#i-edit"/></svg></button>
+                    <button class="icon-button" id="refresh-inbox" type="button" aria-label="Check for new mail" title="Check for new mail"><svg><use href="#i-refresh"/></svg></button>
+                    <button class="icon-button" id="close-inbox" type="button" aria-label="Close inbox"><svg><use href="#i-x"/></svg></button>
+                </div>
+            </div>
+            <div class="inbox-body" id="inbox-list-view">
+                <section class="outbox" id="outbox" aria-label="Outbox" hidden>
+                    <div class="section-label"><span>Outbox</span><small id="outbox-note"></small></div>
+                    <div id="outbox-list"></div>
+                </section>
+                <div class="inbox-list" id="inbox-list"></div>
+            </div>
+            <article class="mail-reader" id="mail-reader" hidden>
+                <button class="reader-back" id="reader-back" type="button"><svg><use href="#i-back"/></svg>Inbox</button>
+                <h3 id="reader-subject"></h3>
+                <p class="reader-meta"><strong id="reader-from"></strong><small id="reader-date"></small></p>
+                <div class="reader-actions">
+                    <button class="secondary-button" id="reader-reply" type="button">Reply</button>
+                    <button class="secondary-button" id="reader-star" type="button" aria-pressed="false">Star</button>
+                    <div class="snooze-wrap">
+                        <button class="secondary-button" id="reader-snooze" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="snooze-menu" data-menu="snooze-menu">Snooze</button>
+                        <div class="account-popover snooze-menu" id="snooze-menu" hidden>
+                            <button type="button" data-snooze="later">Later today</button>
+                            <button type="button" data-snooze="tomorrow">Tomorrow, 8:00 AM</button>
+                            <button type="button" data-snooze="weekend">This weekend</button>
+                            <button type="button" data-snooze="nextweek">Next week</button>
+                        </div>
+                    </div>
+                    <button class="secondary-button reader-delete" id="reader-trash" type="button">Delete</button>
+                </div>
+                <div class="reader-body" id="reader-body"></div>
+            </article>
+        </aside>
+
+        <aside class="storage-panel" id="storage-panel" aria-labelledby="storage-heading" aria-hidden="true">
+            <div class="panel-header"><div><span class="panel-kicker">Google account</span><h2 id="storage-heading">Storage</h2></div><button class="icon-button" id="close-storage" type="button" aria-label="Close storage"><svg><use href="#i-x"/></svg></button></div>
+            <div class="storage-visual">
+                <div class="storage-ring" id="storage-ring"><div><strong id="panel-percent">—</strong><span>used</span></div></div>
+                <p><strong id="storage-used">Loading…</strong><span id="storage-limit"></span></p>
+            </div>
+            <div class="storage-breakdown">
+                <div><span class="breakdown-dot drive"></span><p><strong>Google Drive</strong><small>Files and documents</small></p><b id="drive-used">—</b></div>
+                <div><span class="breakdown-dot other"></span><p><strong>Gmail, Photos & more</strong><small>Other account storage</small></p><b id="other-used">—</b></div>
+            </div>
+            <p class="storage-note">Google reports aggregate account usage. Odyssey does not invent a Gmail-only storage estimate.</p>
+        </aside>
+    </div>
+
+    <dialog class="compose-dialog" id="compose-dialog">
+        <form method="dialog" class="compose-window" id="compose-form">
+            <div class="compose-header"><div><span class="compose-mark"><svg><use href="#i-mail"/></svg></span><div><span>New message</span><small>Send with Gmail</small></div></div><button class="icon-button" id="close-compose" type="button" aria-label="Close compose"><svg><use href="#i-x"/></svg></button></div>
+            <div class="compose-fields">
+                <label><span>To</span><input id="compose-to" type="email" name="to" autocomplete="email" required placeholder="name@example.com"></label>
+                <label><span>Subject</span><input id="compose-subject" type="text" name="subject" maxlength="200" required placeholder="What’s this about?"></label>
+                <label class="body-field"><span class="sr-only">Message</span><textarea id="compose-body" name="body" maxlength="50000" required placeholder="Write your message…"></textarea></label>
+            </div>
+            <div class="compose-footer">
+                <div><button class="secondary-button" id="save-draft" type="button">Save draft</button><span class="compose-status" id="compose-status"></span></div>
+                <button class="primary-button" id="request-send" type="button"><span>Review & send</span><svg><use href="#i-send"/></svg></button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="confirm-dialog" id="confirm-dialog">
+        <div class="confirm-content"><span class="confirm-icon"><svg><use href="#i-send"/></svg></span><h2>Send this message?</h2><p id="confirm-copy">Odyssey will send it through your connected Gmail account.</p><div><button class="secondary-button" id="cancel-send" type="button">Keep editing</button><button class="primary-button" id="confirm-send" type="button">Send now</button></div></div>
+    </dialog>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <script src="/offline-store.js" defer></script>
+    <script src="/app.js" defer></script>
+</body>
+</html>
